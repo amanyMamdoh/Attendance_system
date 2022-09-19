@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" />
+
+   <script src="js/JQuery-3.3.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        
+       #main{
+         margin: 5px auto;
+        
+         height: 50%;
+       }
+    </style>
+</head>
+<body>
+  <div id="navigation"></div>
+    <div id="main" class="container col-lg-7 mt-5">
+     <form class="row g-3 needs-validation" novalidate>
+        <div class=" col-12 ">
+          <div class="form-outline">
+            <label for="validationCustom01" class="form-label">userName</label>
+            <input
+              type="text"
+              class="form-control"
+              id="text1"
+              required
+            />
+           
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-outline">
+            <label for="validationCustom02" class="form-label">password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="text2"
+             
+              required
+            />
+           
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <br/><br/>
+          <div class="container text-center  " >
+            <button id="btn" class=" col-3 btn btn-info" type="submit">Login</button>
+          
+          </div>
+        </div>
+        </form>
+        </div>
+        <script>
+          var text,pass="";
+          window.addEventListener('load',function(){
+            $("#navigation").load("test.html");
+            var btn=document.getElementById('btn');
+           
+            btn.addEventListener('click',function(e){
+              e.preventDefault()
+             getdata();
+        })
+      })
+     async function getdata(){
+             text=document.getElementById('text1');
+              pass=document.getElementById('text2');
+              console.log(text.value);
+
+              let allusers = await fetch("http://localhost:3000/users");
+            let allusersjson = await allusers.json();
+            
+            var temp = "";
+            allusersjson.forEach((user) => { 
+                  if((user.username==text.value) && user.pass==pass.value && user.flag==1)
+                  console.log(text.value)
+                  location.href = "attendance.html";
+                 // console.log(pass.value)
+             })
+
+        // document.getElementById('data').innerHTML = temp;
+            //console.log(allposts);
+        
+              /*var xhr = new XMLHttpRequest();
+	          	xhr.open("get", 'attendance.json');
+              xhr.onload = function() {
+              arr = JSON.parse(xhr.responseText);
+              console.log(arr); 
+             for (let i = 0; i < arr.length; i++) {
+                if((arr[i].username==text.value)&&(arr[i].pass==pass.value))
+              {
+                console.log("entered");
+                location.href = "attendance.html";
+              }
+              else alet("your data is unvalid")
+            }
+          }*/
+      }  
+            
+        </script>
+        </body>
+        </html>

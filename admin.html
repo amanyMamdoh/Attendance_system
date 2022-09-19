@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" />
+
+   <script src="js/JQuery-3.3.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+    </head>
+    <body>
+        <div id="navigation"></div>
+        <div class="container col-lg-7 text-center">
+            <div class="mt-5">
+                <button class="btn btn-info" onclick="getallemp();">All employees</button>
+                <button class="btn btn-success" onclick="fullreport();">Full report</button>
+                <button class="btn btn-warning" onclick="getallemplate();">Late report</button>
+                <button class="btn btn-danger" onclick="getallempexcuse();">Excuse report</button>
+                <button class="btn btn-primary" onclick="empdata();">Employee brief</button>
+            </div>
+            <div class="table-responsive col-12 mt-2">
+            <table  id="table"  
+            class="table table-bordered table-striped text-center  col-12"
+             style="width: 100%;" >
+                    
+                </table>
+           
+           </div>
+        </div>
+
+        <script>
+            window.addEventListener('load',function(){
+                $("#navigation").load("test.html");
+            })
+             async function getallemp() {
+                if(document.getElementById('table').innerHTML !=""){
+                document.getElementById('table').innerHTML="";
+            }
+            let allemp = await fetch("http://localhost:3000/users");
+            let allempjson = await allemp.json();
+            
+            var temp,temp1 = "";
+                temp=`<tr>`;
+                temp+=`<th>Employee name</th>`;
+                temp+=`<th>Attendance</th>`;
+                temp+=`<th>Late</th>`;
+                temp+=`<th>Excuse</th>`;
+                temp+=`</tr>`;
+            allempjson.forEach((emp) => { 
+                temp += "<tr>";
+                temp +=  `<td>${emp.name}</td>`;
+                temp += `<td>${emp.attendanceTimes}</td>`;
+                temp += `<td>${emp.excuse}</td>`;
+                temp += `<td>${emp.lateTimes}</td></tr>`;
+})
+         
+             document.getElementById('table').innerHTML+= temp;
+            
+        }
+        async function getallemplate() {
+            if(document.getElementById('table').innerHTML !=""){
+                document.getElementById('table').innerHTML="";
+            }
+            let allemp = await fetch("http://localhost:3000/users");
+            let allempjson = await allemp.json();
+            
+            var temp,temp1 = "";
+                temp=`<tr>`;
+                temp+=`<th>Employee name</th>`;
+                temp+=`<th>late</th>`;
+                temp+=`</tr>`;
+            allempjson.forEach((emp) => { 
+                temp += "<tr>";
+                temp +=  `<td>${emp.name}</td>`;
+                
+                temp += `<td>${emp.lateTimes}</td></tr>`;
+})
+         
+             document.getElementById('table').innerHTML+= temp;
+            
+        }
+         async function getallempexcuse(){
+            if(document.getElementById('table').innerHTML !=""){
+                document.getElementById('table').innerHTML="";
+            }
+            let allemp = await fetch("http://localhost:3000/users");
+            let allempjson = await allemp.json();
+            
+            var temp,temp1 = "";
+                temp=`<tr>`;
+                temp+=`<th>Employee name</th>`;
+                temp+=`<th>Excuse</th>`;
+                temp+=`</tr>`;
+            allempjson.forEach((emp) => { 
+                temp += "<tr>";
+                temp +=  `<td>${emp.name}</td>`;
+                temp += `<td>${emp.excuse}</td></tr>`;
+})
+         
+             document.getElementById('table').innerHTML+= temp;
+         
+          }
+          async function empdata(){
+            if(document.getElementById('table').innerHTML !=""){
+                document.getElementById('table').innerHTML="";
+            }
+            let allemp = await fetch("http://localhost:3000/users");
+            let allempjson = await allemp.json();
+            
+            var temp,temp1 = "";
+                temp=`<tr>`;
+                temp+=`<th>Employee name</th>`;
+                temp+=`<th>Email</th>`;
+                temp+=`<th>Address</th>`;
+                temp+=`<th>username</th>`;
+                temp+=`<th>age</th>`;
+                temp+=`<th>Attendance</th>`;
+               
+                temp+=`</tr>`;
+            allempjson.forEach((emp) => { 
+                temp += "<tr>";
+                temp +=  `<td>${emp.name}</td>`;
+                temp +=  `<td>${emp.email}</td>`;
+                temp +=  `<td>${emp.address}</td>`;
+                temp +=  `<td>${emp.username}</td>`;
+                temp +=  `<td>${emp.age}</td>`;
+                temp += `<td>${emp.attendanceTimes}</td></tr>`;
+            
+               
+})
+         
+             document.getElementById('table').innerHTML+= temp;
+            
+        
+          }
+          async function fullreport() {
+                if(document.getElementById('table').innerHTML !=""){
+                document.getElementById('table').innerHTML="";
+            }
+            let allemp = await fetch("http://localhost:3000/users");
+            let allempjson = await allemp.json();
+            
+            var temp,temp1 = "";
+                temp=`<tr>`;
+                temp+=`<th>Employee name</th>`;
+                temp+=`<th>Attendance times</th>`;
+                temp+=`<th>Late</th>`;
+                temp+=`<th>Attendance</th>`;
+                temp+=`<th>Excuse</th>`;
+                temp+=`<th>Abcanse</th>`;
+                temp+=`</tr>`;
+            allempjson.forEach((emp) => { 
+                temp += "<tr>";
+                temp +=  `<td>${emp.name}</td>`;
+                temp += `<td>${emp.attendanceTimes}</td>`;
+                temp += `<td>${emp.lateTimes}</td>`;
+                temp += `<td>${emp.time}</td>`;
+                temp += `<td>${emp.excuse}</td>`;
+                temp += `<td>${emp.abcentTimes}</td></tr>`;
+})
+         
+             document.getElementById('table').innerHTML+= temp;
+            
+        }
+        </script>
+    </body>
+    </html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" />
+    <title>home</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            box-sizing:border-box;
+        }
+       
+                .cover{
+                    background-image:url(11.gif);
+                    height:90vh;
+                    background-position:center;
+                    background-size:cover;
+                    display:flex;
+                    flex-direction:column;
+                    align-items:center;
+                    justify-content:center;
+                }
+                .cover>h3{
+                    color:white;
+                    text-align:center;
+                    font-size:2rem;
+                }
+                    .cover > button {
+                        margin-top: 10px;
+                        padding: 1rem 1.2rem;
+                        border-radius: 10px;
+                        background: -webkit-linear-gradient(top left,rgb(17 161 225),rgb(133 217 239));
+                    }
+                        .cover > button:hover {
+                            background: -webkit-linear-gradient(top left,rgb(133 217 239),rgb(17 161 225));
+                            cursor:pointer;
+                        }
+        .introduction {
+            display: flex;
+            margin-bottom:1rem;
+            flex-wrap:wrap;
+        }
+            .introduction > .intro-image, .introduction > .intro-links{
+                flex:1 1 23rem;
+            }
+
+            .introduction > .intro-image > img {
+                width: 100%;
+                height: 100%;
+            }
+        .intro-links{
+            background-color:rgb(220 222 210);
+            display:flex;
+            flex-direction:column;
+            align-items:center;  
+            justify-content:space-between;
+        }
+            .intro-links>h3{
+                margin-top:1rem;
+            }
+            .intro-links > p {
+                width: 90%;
+                text-align: left;
+                margin-top:2.5rem;
+            }
+            .tracks{
+                display:flex;
+                justify-content:space-around;
+                flex-wrap:wrap;
+            }
+            .track{
+                text-align:center;
+            }
+            .track>p>a{
+                text-decoration:none;
+                font:bold 1rem verdana;
+                color:rgb(129 124 124);
+            }
+                .track > p > a:hover {
+                    color: rgb(142 16 16);
+                }
+           #iti img{
+               margin-top: 20px;
+               height: 100px;
+           }
+           .locate-img {
+              width: 35%;
+              height: 30%;
+          
+           }
+           .locate-img>img{
+               width: 100%;
+               height: 100%;
+           }
+           .location{
+             display: flex;
+            margin-bottom:1rem;
+            flex-wrap:wrap;
+            justify-content: space-between;
+
+           }
+           .branch1 img ,.branch2 img{
+               width: 10px;
+               height: 10px;
+
+           }
+           
+           .branches1 div ,.branches2 div{
+               width: 50%;
+               height: 10%;
+               font-family: tahoma;
+               color: midnightblue;
+               font-size: 12px;
+               background-color: rgb(225, 230, 238);
+              padding: 5px;
+              margin-bottom: 1rem;
+           }
+         /*  .branch1 div>span ,.branch2 div>span{
+               width: 10%;
+           }*/
+           .locate-branches{
+               margin-top: 4rem;
+            width: 55%;
+            display:flex;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            flex-direction: row;
+            flex:1 0 23rem;
+
+           }
+           
+           .locate-branches .branches1,.locate-branches .branches2{
+            flex:1 1 15rem;
+          
+           }
+          .contact{
+               width:100%;
+               background-color: rgb(4, 4, 34);
+               height: 10rem;
+               display: flex;
+               flex-direction: row;
+               justify-content: space-between;
+           }
+           .contact1{
+               padding: 10px;
+               color: rgb(173, 176, 177);
+               font-family: tahoma;
+               font-size: 12px;
+               display: flex;
+               flex-direction: column;
+               justify-content: space-around;
+           }
+          
+           .contact1>p ,.contact2>p{
+               color: oldlace;
+               font-size: 15px;
+               font-weight: bold;
+               font-family: tahoma;
+           }
+          .contactinfo img{
+               width: 1rem;
+               height: 1rem;
+               
+
+           }
+          .contact .contact1,.contact .contact2{
+              flex:1 1 23rem;
+           }
+           .contact2 img{
+            width: 20px;
+            height: 20px;
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+        .sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+    </style>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="register.html">Registeration</a>
+       
+        <a href="admin.html">Admin</a>
+        <a href="reports.html">Reports</a>
+      </div>
+      
+      <!-- Use any element to open the sidenav -->
+     <div class="container-fluid" style="background-color: rgb(74, 149, 153);">
+       <i class="fa fa-bars m-3 fa-2x"  onclick="openNav()"></i>
+       <i class="fa fa-home m-3 fa-2x"  ></i>
+       <button class="btn btn-outline-light mt-0 ml-lg-10 " style="height:75px;width: 70px;"
+       onclick="login();">Login</button>
+    </div>
+      
+      <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+      <div id="main">
+        
+      </div>
+   
+    <div class="cover">
+      
+    </div>
+    <div class="introduction">
+        <div class="intro-image">
+            <img src="22.png" title="ITI Life"/>
+        </div>
+        <div class="intro-links">
+            <h3>About us</h3>
+            <p>Attendance</p>
+            <p>Registeration</p>
+            <p>Reports</p>
+            <p>Admin</p>
+        </div>
+    </div>
+    <div class="tracks">
+       
+
+        <div class="track">
+            <img src="555.jpg" title="LOREM" />
+            <h4>Lorem</h4>
+            <p>For More Details Click <a href="#">More..</a></p>
+        </div>
+
+        <div class="track">
+            <img src="66.webp" title="FullStack DotNet" />
+            <h4>Lorem</h4>
+            <p>For More Details Click <a href="#">More..</a></p>
+        </div>
+       
+        
+    </div>
+   
+    
+
+    <div class="contact">
+        <div class="contact1">
+            <p>CONTACT US</p>
+            <div class="contactinfo">
+                <img src="13.jpg"/><span>28 km by cairo/alexandria </span>
+            </div>
+            <div class="contactinfo">
+                <img src="11.png"/><span>(+020)123455677</span>
+            </div>
+            <div class="contactinfo">
+                <img src="12.jpg"/><span>itiinfi@iti.gov.egy</span>
+            </div>
+        </div>
+        <div class="contact2">
+            <p>FOLLOW US</p>
+           <img src="9.png"/>
+           <img src="10.png"/>
+           <img src="11.jpg"/>
+        </div>
+    </div>
+   
+        <script>
+          function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+function login(){
+    window.location.href = "login.html";
+}
+    </script>
+   
+</body>
+</html>

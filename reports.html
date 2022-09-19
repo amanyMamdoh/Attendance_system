@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>Reports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" />
+
+   <script src="js/JQuery-3.3.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+       
+       #main{
+         margin: 5px auto;
+        
+         height: 50%;
+       }
+       #day{
+          
+           display: none;
+       }
+       #month{
+          
+           display: none;
+       }
+    </style>
+</head>
+<body>
+    <div id="navigation"></div>
+    <div id="main" class="container col-lg-7">
+        <form>
+            <input id="user" type="text" class="form-control mb-2" placeholder="search for employee"/>
+        </form>
+        <div class="text-center">
+            <button id="dbtn" class="btn btn-info"  >Daily report</button>
+            <button id="mbtn" class="btn btn-info" >Monthly report</button>
+        </div>
+         <div class="container d-flex mt-5 " style="width: 80%;background-color: rgb(245, 237, 245); border-radius: 10px;">
+             <div class="text-center">
+                 <h4  id="name"></h4>
+             </div>
+             <div class="container " >
+                <div id="day">
+                    <div class="text-center p-3 " >
+                        <span class="">Attendance time:</span>
+                        <span id="span4"style="color: rgb(12, 12, 151);"></span>
+                    </div>
+                    <div class="text-center p-3 " >
+                        <span class="">Email:</span>
+                        <span id="span5"style="color: rgb(12, 12, 151);"></span>
+                    </div>
+                    <div class="text-center p-3 " >
+                        <span class="">Address:</span>
+                        <span id="span6"style="color: rgb(12, 12, 151);"></span>
+                    </div> 
+                </div>
+                <div id="month" >
+                <div class="text-center p-3 " >
+                    <span class="">Attendance times:</span>
+                    <span id="span1"style="color: rgb(12, 12, 151);"></span>
+                </div>
+                <div class="text-center p-3 " >
+                    <span class="">absense times:</span>
+                    <span id="span2"style="color: rgb(12, 12, 151);"></span>
+                </div>
+                <div class="text-center p-3 " >
+                    <span class="">late times:</span>
+                    <span id="span3"style="color: rgb(12, 12, 151);"></span>
+                </div> 
+                </div>
+             </div>
+         </div>
+         
+       
+       
+       
+        </div>
+        <script>
+            var usern,span1,span2,span3,span4,span5,span6,h3="";
+            window.addEventListener('load',function(){
+                $("#navigation").load("test.html");
+               usern=document.getElementById('user');
+               span1=document.getElementById('span1');
+               span2=document.getElementById('span2');
+               span3=document.getElementById('span3');
+               span4=document.getElementById('span4');
+               span5=document.getElementById('span5');
+               span6=document.getElementById('span6');
+               h3=document.getElementById('name');
+               var dbtn=document.getElementById('dbtn');
+               var mbtn=document.getElementById('mbtn');
+               
+               mbtn.addEventListener('click',function(e){
+                displaymonth() ;
+               });
+               dbtn.addEventListener('click',function(){
+                displayday(); 
+               });
+            })
+          function displayday(){
+            document.getElementById('month').style.display='none';
+              document.getElementById('day').style.display='block';
+          }
+          function displaymonth() {
+                console.log("hamada");
+                var xhr = new XMLHttpRequest();
+                xhr.open("get", 'http://localhost:3000/users');
+                xhr.onload = function() {
+                arr = JSON.parse(xhr.responseText);
+                console.log(arr);
+               for (let i = 0; i < arr.length; i++) {
+                    if(arr[i].username==usern.value)
+                     {
+                        document.getElementById('day').style.display='none';
+                        document.getElementById('month').style.display='block';
+                         console.log("span2");
+                         h3.innerText=arr[i].name;
+                        span1.innerText=arr[i].attendanceTimes ;
+                        span2.innerText=arr[i].abcentTimes;
+                        span3.innerText=arr[i].lateTimes;
+                        //info.style.display='block';
+                    }
+                    }
+					};
+					// console.log(userdata);
+					xhr.send();
+         
+      }
+      function displayday() {
+                console.log("hamada");
+                var xhr = new XMLHttpRequest();
+                xhr.open("get", 'http://localhost:3000/users');
+                xhr.onload = function() {
+                arr = JSON.parse(xhr.responseText);
+                console.log(arr);
+               for (let i = 0; i < arr.length; i++) {
+                    if(arr[i].username==usern.value)
+                     {
+                        document.getElementById('month').style.display='none';
+                        document.getElementById('day').style.display='block';
+                         console.log("span2");
+                         h3.innerText=arr[i].name;
+                        span4.innerText=arr[i].time;
+                        span5.innerText=arr[i].email;
+                        span6.innerText=arr[i].address;
+                        //info.style.display='block';
+                    }
+                    }
+					};
+					// console.log(userdata);
+					xhr.send();
+         
+      }
+        </script>
+        </body>
+        </html>

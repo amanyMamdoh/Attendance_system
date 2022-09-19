@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Attendance</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/bootstrap.css" rel="stylesheet" />
+        <link href="css/font-awesome.css" rel="stylesheet" />
+      
+         <script src="js/JQuery-3.3.1.min.js"></script>
+          <script src="js/popper.js"></script>
+          <script src="js/bootstrap.js"></script>
+          
+          <style>
+              #info{
+                  display: none;
+              }
+          </style>
+         
+    </head>
+    <html>
+        <div id="navigation"></div>
+        <div class="container col-lg-6 col-md-8 col-12 mt-5">
+            <form>
+                <div class="col-12 ">
+                    <div class="form-outline">
+                      <label>User name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="user"
+                      
+                      />
+                    </div>
+                  </div>
+                <div class="container text-center mt-3">
+                    <button id="btn"class="btn btn-success" >Confirm attendance</button>
+                </div>
+            </form>
+        </div>
+        <div id="info" class="container col-lg-6 col-md-8 col-12 mt-5 text-center font-weight-bold"
+                 >
+            <div class="text-center p-3 " >
+                <span class="">Employee name:</span>
+                <span id="span1"style="color: rgb(12, 12, 151);"></span>
+            </div>
+            <div class="text-center pb-3">
+                <span>Attendance time:</span>
+                <span id="span2"style="color: rgb(12, 12, 151);"></span>
+            </div>
+            <button class="btn btn-danger" onclick="disapear();">close</button>
+        </div>
+           <script>
+                const validTime=9;
+                 var date=new Date();
+                 var time;
+                 var arr=[];
+               var usern,
+                span1,
+                span2="";
+                window.addEventListener('load', function () {
+                    $("#navigation").load("test.html");
+                var info=document.getElementById("info");
+                info.style.display='none';
+                usern= document.getElementById('user');
+                span1=document.getElementById('span1');
+                span2=document.getElementById('span2');
+                var attend=document.getElementById('btn');
+                attend.addEventListener('click',function(e){
+                    e.preventDefault();
+                   
+                    getdata();
+                });
+
+                });
+     
+           function disapear(){
+            var info=document.getElementById("info");
+               info.style.display='none';
+               usern.value="";
+               
+           }
+           function getdata()
+             {
+               time=date.getHours();
+            console.log(time);
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", 'http://localhost:3000/users');
+            xhr.onload = function() {
+            arr = JSON.parse(xhr.responseText);
+                console.log(arr)
+                for (let i = 0; i < arr.length; i++) {
+                if((arr[i].username==usern.value))
+                {
+                    console.log("span2");
+                    span1.innerText=arr[i].name ;
+                    span2.innerText=time+"am";
+                    info.style.display='block';
+                }
+                }
+                        };
+				 // console.log(userdata);
+					xhr.send();
+                    setdata();
+      }
+           function setdata(){
+              var url = "http://localhost:3000/users";
+              
+              var xhr = new XMLHttpRequest();
+              xhr.open("PATCH", url);
+              if(time-validTime>0 && arr.username==usern){
+                let obj={
+                    "time":time,
+                "lateTimes":arr.lateTimes++
+               }
+              }
+              
+              xhr.setRequestHeader("Content-Type", "application/json");
+             //xhr.setRequestHeader("Content-Length", "7");
+
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.status);
+                    console.log(arr.lateTimes);
+                   // console.log(xhr.responseText);
+                }};
+
+              xhr.send(obj);
+
+
+            }
+           </script>
+    </html>
+</html>

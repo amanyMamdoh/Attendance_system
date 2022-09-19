@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.css" rel="stylesheet" />
+
+   <script src="js/JQuery-3.3.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"> </script>
+    <style>
+        body {
+            padding-top: 10px;
+        }
+       #main{
+         margin: 5px auto;
+        
+         height: 50%;
+       }
+       #fdiv,#ldiv,#adiv,#gdiv,#ediv{
+            font:bold 10px tahoma;
+            text-align:center;
+            color:rgb(250, 76, 76);
+            display:none;
+            margin-top: 2px;
+        }
+        .error{
+            border:2px solid red;
+        }
+        .succes{
+            border:2px solid green;
+        }
+        input[type="text"]:focus{
+            outline:none;
+        }
+    </style>
+</head>
+<body>
+  <div id="navigation"></div>
+    <div id="main" class="container col-lg-7">
+     <form class="row g-3 " >
+        <div class=" col-12 ">
+          <div class="form-outline">
+            <label>First name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fname"
+              required
+            />
+            <span  id="fdiv">Please enter your first name.</span>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-outline">
+            <label>Last name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lname"
+              required
+            />
+            <div id="ldiv">Please enter your last name.</div>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-outline">
+            <label >Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              required
+            />
+            <span id="adiv">Please enter your address.</span>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-outline">
+            <label >email</label>
+            <input type="text" class="form-control" id="email" required />
+           
+            <span  id="ediv">Please provide a valid email.</span>
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-outline">
+            <label >Age</label>
+            <input type="text" class="form-control" id="age" required />
+            <span id="gdiv">Please enter your age.</span>
+          </div>
+        </div>
+        <br/> <br/> <br/> <br/> <br/>
+        <div class="container text-center  " >
+        
+          <button class=" col-3  btn btn-success" >Login</button>
+          <button class=" col-3 btn btn-info" type="submit">Register</button>
+        
+        </div>
+      </form>
+    </div>
+   
+   
+    <script>
+        //   var fname,lname,address,age,email,username,passsword="";
+     window.addEventListener('load', function () {
+      $("#navigation").load("test.html");
+            // get all user input controls
+            fname = document.getElementById('fname');
+            lname = document.getElementById('lname');
+            address = document.getElementById('address');
+            email = document.getElementById('email');
+            age= document.getElementById('age');
+
+            fname.focus();
+            // usernamespan
+            fdiv = this.document.getElementById('fdiv');
+            ldiv = this.document.getElementById('ldiv');
+            adiv = this.document.getElementById('adiv');
+            ediv = this.document.getElementById('ediv');
+            gdiv = this.document.getElementById('gdiv');
+
+            // validate username
+            fname.addEventListener('blur', function () {
+                if (!isfnamevalid()) {
+                    // show error message
+                    fdiv.style.display = 'block';
+                    fname.focus();
+                    fname.select();
+                  //  fname.className = 'error';
+                    // add class error
+                } else {
+                    fdiv.style.display = 'none';
+                    //fname.className = 'isvalid';
+
+                }
+            });//end of username validator
+            // userpass validator
+            lname.addEventListener('blur', function () {
+                if (!islnamevalid()) {
+                  // lname.className = 'error';
+                    ldiv.style.display = 'block';
+                    lname.focus();
+                    lname.select();
+                } else {
+                   // lname.className = 'succes';
+                    ldiv.style.display = 'none';
+                }
+            });//end of password validation
+            age.addEventListener('blur', function () {
+                if (!isagevalid()) {
+                  // age.className = 'error';
+                    gdiv.style.display = 'block';
+                    age.focus();
+                    age.select();
+                } else {
+                  //  age.className = 'succes';
+                    gdiv.style.display = 'none';
+                }
+            });
+
+            //emailvalidator
+            email.addEventListener('blur', function () {
+                if (!isemailvalid()) {
+                   // email.className = 'error';
+                    ediv.style.display = 'block';
+                     email.focus();
+                    email.select();
+                } else {
+                    //email.className = 'succes';
+                    emailspan.style.display = 'none';
+                }
+            });
+
+            // submit event
+            document.forms[0].addEventListener('submit', function (data) {
+                 data.preventDefault();
+            //  if (isemailvalid() && islnamevalid() && isfnamenamevalid() && isagevalid()) {
+                  generatePassword();
+              //  }
+                if (!(isemailvalid() && islnamevalid() && isfnamenamevalid() && isagevalid())) {
+                    //prevnet default
+                    data.preventDefault();
+                }
+                if (!isemailvalid()){
+                  //  email.className = 'error';
+                    ediv.style.display = 'block';
+                    email.focus();
+                    email.select();
+                }
+               
+                if (!isfnamevalid()) {
+                    fname.className = 'error';
+                    fdiv.style.display = 'block';
+                    fname.focus();
+                    fname.select();
+                }
+                if (!islnamelvalid()){
+                    lname.className = 'error';
+                    ldiv.style.display = 'block';
+                    lname.focus();
+                    lname.select();
+                }
+                if (!isagevalid()) {
+                    age.className = 'error';
+                    gdiv.style.display = 'block';
+                    age.focus();
+                    age.select();
+                }
+               
+            });//end of submit event
+
+
+           // window.oncontextmenu = function (e) { alert("You Can't Display Context Menu"); e.preventDefault(); }
+           
+
+        });//end of load
+        function isfnamevalid() {
+            var usernamepattern = /^[A-Za-z]{4,6}$/;
+            return fname.value.match(usernamepattern);   
+        }
+        function islnamevalid() {
+            var usernamepattern = /^[A-Za-z]{4,6}$/;
+            return lname.value.match(usernamepattern);   
+        }
+        
+        function isemailvalid() {
+            var emailExpr = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return email.value.match(emailExpr);   
+        }
+        function isagevalid() {
+            var x = /^[0-9]+$/;
+            return age.value.match(x);   
+        }
+        function generatePassword() {
+          var user=Math.floor(Math.random()*1000);
+          var name=document.getElementById('fname').value;
+            username=name+user;
+         var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        //passsword = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+           passsword += charset.charAt(Math.floor(Math.random() * n));
+      }  
+       alert(username+""+passsword);
+       sendEmail(passsword,username);
+    }
+   function sendEmail(password,username){
+          alert("hi");
+          var useremail=document.getElementById('email').value;
+             Email.send({
+                Host: "smtp.elasticemail.com",
+                Username: "amanymamdouh441@gmail.com",
+                Password: "5AD0840E8E12962E1E6BA0EE8701C23CE364",
+                To: `${useremail}`,
+                From: "amanymamdouh441@gmail.com",
+                Subject: "attendance system registeration",
+                Body:"your username:"+username+" your password: "+password,
+              })
+                .then(function (message) {
+                  alert(message);
+                });
+              //  setdata();
+            }
+            function setdata(){
+              var url = "http://localhost:3000/users";
+              
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", url);
+               let obj={
+                 "name":fname+" "+lname,
+                 "email":email.value,
+                 "age":age.value,
+                 "address":address.value,
+                 "username":username,
+                 "pass":passsword
+               }
+              xhr.setRequestHeader("Content-Type", "application/json");
+             //xhr.setRequestHeader("Content-Length", "7");
+
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.status);
+                   // console.log(xhr.responseText);
+                }};
+
+              xhr.send(obj);
+
+
+            }
+      </script>
+</body>
+</html>
